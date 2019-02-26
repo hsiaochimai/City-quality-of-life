@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Quality of life based on cites</title>
+        <link href="index.css" rel="stylesheet" type="text/css" />
+        <link href="chosen.min.css" rel="stylesheet">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="chosen.jquery.min.js"></script>
+      </head>  
+</html>
+<body>
+<form id="current-location">
+        <label for="detectLocation">Detect my Location</label>
+        <input type="submit" value="Submit!"><br>
+</form>
+<form id="urbanAreasForm">
+    <select id="urbanAreas-Dropdown" name= "Choose a city" single="">
+    <input id="urbanAreas-submit" type="submit" value="Fetch!">
+</select>
+</form>
+<section id="results-one" class="hidden">
+    <ul id="results-list-one">
+    </ul>
+</section>
+<script type="text/javascript" src="urban_areas.json"></script>
+    <script src="index.js"></script>
+</body>
