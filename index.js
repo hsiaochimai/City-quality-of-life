@@ -5,8 +5,11 @@ function urbanAreasDropdown() {
     for (let i = 0; i < userInputUA.length; i++) {
         let urbanAreaDropdownlist = `<option value="${urbanAreaNames[userInputUA[i]]}">${userInputUA[i]}</option>`
         $('#urbanAreas-Dropdown').append(urbanAreaDropdownlist);
+        $('#urbanAreas-Dropdown-secondary').append(urbanAreaDropdownlist);
+
     }
     $('#urbanAreas-Dropdown').chosen();
+    $('#urbanAreas-Dropdown-secondary').chosen();
 }
 // sets up fetch button to get the data from teleport from value of dropdown
 function setupDropdownSubmit() {
@@ -21,24 +24,24 @@ function setupDropdownSubmit() {
 function setupSecondaryDropdownSubmit() {
     $('#urbanAreasForm-secondary').submit(event => {
         event.preventDefault();
-        let userInput = $('#urbanAreas-Dropdown').val();
-        console.log(`user input is`, userInput);
+        let userInput = $('#urbanAreas-Dropdown-secondary').val();
+        console.log(`secondary user input is`, userInput);
         getDataFromDropdown(userInput, false)
     })
 }
 //gets data from teleport based on the value of dropdown menu
-function getDataFromDropdown(dropdownUserInput, isPrimary){
+function getDataFromDropdown(dropdownUserInput, isPrimary) {
     fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
-    .then(response=>response.json())
-    .then(obj=>{
-        STORE[isPrimary?'primaryData':'secondaryData']=obj
-        if(isPrimary){  
-            //to do enable the secondary chosen 
-        }else{
-            //compute comparison
-        }
-        return displayResults(obj, isPrimary);
-    })
+        .then(response => response.json())
+        .then(obj => {
+            STORE[isPrimary ? 'primaryData' : 'secondaryData'] = obj
+            if (isPrimary) {
+                //to do enable the secondary chosen 
+            } else {
+                //compute comparison
+            }
+            return updateDOM(obj, isPrimary);
+        })
 }
 // sets up submit for current location
 function currentlocationSubmit() {
@@ -65,7 +68,7 @@ function getTeleportLocationData(coordinates) {
     fetch(`https://api.teleport.org/api/locations/${coordinates}`)
         .then(response => response.json())
         .then(obj => {
-            console.log(obj);
+            console.log(`coordinates data is`, obj);
             return getTeleportScores(obj);
 
         })
@@ -79,32 +82,54 @@ function getTeleportScores(coordinateArr) {
         .then(response => response.json())
         .then(scoreRes => {
             console.log(`score information is`, scoreRes)
-            displayResults(scoreRes);
+            STORE.primaryData = scoreRes
+            updateDOM();
         })
 }
+function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
 //puts results into the DOM
-function displayResults(scoreArr) {
+function updateDOM() {
     $('#results-one').empty();
-    $('#results-one').removeClass('hidden')
-    let citySummary= scoreArr.summary;
-    $('#results-one').append(citySummary);
-    let overallCityScore= `<p>Overall Score: ${scoreArr.teleport_city_score}</p>`
-    $('#results-one').append(overallCityScore);
-    
-    for (i = 0; i <scoreArr.categories.length; i++) {
-        const categoryNameScore = `<ul>${scoreArr.categories[i].name}<li>Score:${scoreArr.categories[i].score_out_of_10}</li></ul>`  
-        $('#results-one').append(categoryNameScore);
-        storeData(citySummary, overallCityScore, categoryNameScore);
+    if (STORE.primaryData === null) {
+        $('#compareCity').hide();
+        return
     }
-    
-}
-function storeData(summary, cityScore, categoryScore){
-    STORE.items.push(summary);
-    STORE.items.push(cityScore);
-    STORE.items.push(categoryScore);
-    console.log(`This is in the`,STORE)
+    $('#compareCity').show();
+    const scoreArr = STORE.primaryData.categories
+    $('#results-one').removeClass('hidden')
+    let citySummary = normalizeSummary(STORE.primaryData.summary);
+    $('#results-one').append(citySummary);
+    let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
+    $('#results-one').append(overallCityScore);
+
+    for (i = 0; i < scoreArr.length; i++) {
+        const categoryNameScore = `<ul>${scoreArr[i].name}<li>Score:${scoreArr[i].score_out_of_10.toFixed(2)}</li></ul>`
+        $('#results-one').append(categoryNameScore);
+
+    }
+    function displaySecondary() {
+        $('#results-two').empty();
+        if (STORE.secondaryData === null) {
+            return
+        }
+        const scoreArr = STORE.secondaryData.categories
+        $('#results-two').removeClass('hidden')
+        let citySummary = normalizeSummary(STORE.secondaryData.summary);
+        $('#results-two').append(citySummary);
+        let overallCityScore = `<p>Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
+        $('#results-two').append(overallCityScore);
+
+        for (i = 0; i < scoreArr.length; i++) {
+            const categoryNameScore = `<ul>${scoreArr[i].name}<li>Score:${scoreArr[i].score_out_of_10.toFixed(2)}</li></ul>`
+            $('#results-two').append(categoryNameScore);
+
+        }
+    }
+    displaySecondary();
 }
 
 currentlocationSubmit();
 urbanAreasDropdown();
 setupDropdownSubmit();
+setupSecondaryDropdownSubmit();
+updateDOM();
