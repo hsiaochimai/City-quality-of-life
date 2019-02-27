@@ -70,12 +70,20 @@ function displayResults(scoreArr) {
     $('#results-one').append(citySummary);
     let overallCityScore= `<p>Overall Score: ${scoreArr.teleport_city_score}</p>`
     $('#results-one').append(overallCityScore);
+    
     for (i = 0; i <scoreArr.categories.length; i++) {
-        const categoryNameScore = `<ul>${scoreArr.categories[i].name}<li>Score:${scoreArr.categories[i].score_out_of_10}</li></ul>`
+        const categoryNameScore = `<ul>${scoreArr.categories[i].name}<li>Score:${scoreArr.categories[i].score_out_of_10}</li></ul>`  
         $('#results-one').append(categoryNameScore);
+        storeData(citySummary, overallCityScore, categoryNameScore);
     }
+    
 }
-
+function storeData(summary, cityScore, categoryScore){
+    STORE.items.push(summary);
+    STORE.items.push(cityScore);
+    STORE.items.push(categoryScore);
+    console.log(`This is in the`,STORE)
+}
 
 currentlocationSubmit();
 getUrbanAreas();
