@@ -12,6 +12,14 @@ function setupDropdownSubmit() {
         event.preventDefault();
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
+        getDataFromDropdown(userInput)
+    })
+}
+function getDataFromDropdown(dropdownUserInput){
+    fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
+    .then(response=>response.json())
+    .then(obj=>{
+        return displayResults(obj);
     })
 }
 function currentlocationSubmit() {
@@ -51,27 +59,24 @@ function getTeleportScores(coordinateArr) {
         .then(response => response.json())
         .then(scoreRes => {
             console.log(`score information is`, scoreRes)
-            return displayResults(scoreRes);
+            displayResults(scoreRes);
         })
 }
+
 function displayResults(scoreArr) {
+    $('#results-one').empty();
     $('#results-one').removeClass('hidden')
-    for (i = 0; i <scoreArr.length; i++) {
+    let citySummary= scoreArr.summary;
+    $('#results-one').append(citySummary);
+    let overallCityScore= `<p>Overall Score: ${scoreArr.teleport_city_score}</p>`
+    $('#results-one').append(overallCityScore);
+    for (i = 0; i <scoreArr.categories.length; i++) {
         const categoryNameScore = `<ul>${scoreArr.categories[i].name}<li>Score:${scoreArr.categories[i].score_out_of_10}</li></ul>`
-console.log(categoryNameScore);
+        $('#results-one').append(categoryNameScore);
     }
 }
 
-/*
-        fetch(`https://api.teleport.org/api/urban_areas/slug:${userInput}/scores/`)
-.then(response=>response.json())
-.then(obj=>{
-    console.log(obj)
-})
-    });
-    
 
-}*/
 currentlocationSubmit();
 getUrbanAreas();
 setupDropdownSubmit();
