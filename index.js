@@ -1,4 +1,5 @@
-function getUrbanAreas() {
+//gets keys for dropdown menu
+function urbanAreasDropdown() {
     console.log(urbanAreaNames);
     let userInputUA = Object.keys(urbanAreaNames);
     for (let i = 0; i < userInputUA.length; i++) {
@@ -7,21 +8,39 @@ function getUrbanAreas() {
     }
     $('#urbanAreas-Dropdown').chosen();
 }
+// sets up fetch button to get the data from teleport from value of dropdown
 function setupDropdownSubmit() {
     $('#urbanAreasForm').submit(event => {
         event.preventDefault();
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
-        getDataFromDropdown(userInput)
+        getDataFromDropdown(userInput, true)
     })
 }
-function getDataFromDropdown(dropdownUserInput){
+// sets up submit for comparing cities
+function setupSecondaryDropdownSubmit() {
+    $('#urbanAreasForm-secondary').submit(event => {
+        event.preventDefault();
+        let userInput = $('#urbanAreas-Dropdown').val();
+        console.log(`user input is`, userInput);
+        getDataFromDropdown(userInput, false)
+    })
+}
+//gets data from teleport based on the value of dropdown menu
+function getDataFromDropdown(dropdownUserInput, isPrimary){
     fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
     .then(response=>response.json())
     .then(obj=>{
-        return displayResults(obj);
+        STORE[isPrimary?'primaryData':'secondaryData']=obj
+        if(isPrimary){  
+            //to do enable the secondary chosen 
+        }else{
+            //compute comparison
+        }
+        return displayResults(obj, isPrimary);
     })
 }
+// sets up submit for current location
 function currentlocationSubmit() {
     $('#current-location').submit(event => {
         event.preventDefault();
@@ -32,6 +51,7 @@ function currentlocationSubmit() {
             })
     });
 }
+//uses coordinates from ip stack to get data from teleport
 function getDataByCoordinates(objArr) {
     let latitude = objArr.latitude
     let longitude = objArr.longitude
@@ -40,7 +60,7 @@ function getDataByCoordinates(objArr) {
     getTeleportLocationData(latLongCoor)
 
 }
-
+//gets teleport location data based on coordinates
 function getTeleportLocationData(coordinates) {
     fetch(`https://api.teleport.org/api/locations/${coordinates}`)
         .then(response => response.json())
@@ -50,7 +70,7 @@ function getTeleportLocationData(coordinates) {
 
         })
 }
-
+//gets scores data from teleport based on the location data from coordinates
 function getTeleportScores(coordinateArr) {
     let coorURL = coordinateArr["_embedded"]["location:nearest-urban-areas"][0]["_links"]["location:nearest-urban-area"]["href"]
     console.log(`the link is`, coorURL);
@@ -62,7 +82,7 @@ function getTeleportScores(coordinateArr) {
             displayResults(scoreRes);
         })
 }
-
+//puts results into the DOM
 function displayResults(scoreArr) {
     $('#results-one').empty();
     $('#results-one').removeClass('hidden')
@@ -86,5 +106,5 @@ function storeData(summary, cityScore, categoryScore){
 }
 
 currentlocationSubmit();
-getUrbanAreas();
+urbanAreasDropdown();
 setupDropdownSubmit();

@@ -1,5 +1,7 @@
 const STORE={
     currentItemIndex: null,
     message: null,
-    items:[]
+    primaryData: null,
+    secondaryData: null,
+
 }
