@@ -15,9 +15,16 @@ function urbanAreasDropdown() {
 function setupDropdownSubmit() {
     $('#urbanAreasForm').submit(event => {
         event.preventDefault();
+        $("header").hide();
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
+        if (userInput==="currentLocation"){
+            currentlocationSubmit();
+        }
+        else{
+        
         getDataFromDropdown(userInput, true)
+    }
     })
 }
 // sets up submit for comparing cities
@@ -45,14 +52,12 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 }
 // sets up submit for current location
 function currentlocationSubmit() {
-    $('#current-location').submit(event => {
-        event.preventDefault();
-        fetch('http://api.ipstack.com/check?access_key=8a13d7be3d84524ef68a4533c1352b8f')
-            .then(response => response.json())
-            .then(obj => {
-                return getDataByCoordinates(obj)
-            })
-            $('#current-location').hide();
+    fetch('http://api.ipstack.com/check?access_key=8a13d7be3d84524ef68a4533c1352b8f')
+    .then(response => response.json())
+    .then(obj => {
+        return getDataByCoordinates(obj)
+
+            
     });
 }
 //uses coordinates from ip stack to get data from teleport
@@ -129,7 +134,6 @@ function updateDOM() {
     displaySecondary();
 }
 function watchForm(){
-currentlocationSubmit();
 urbanAreasDropdown();
 setupDropdownSubmit();
 setupSecondaryDropdownSubmit();

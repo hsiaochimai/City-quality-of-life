@@ -1,4 +1,5 @@
 const urbanAreaNames={
+  "Detect my location":"currentLocation",
   "Aarhus": "aarhus",
   "Adelaide": "adelaide",
   "Albuquerque": "albuquerque",
