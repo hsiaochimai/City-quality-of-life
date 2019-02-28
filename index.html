@@ -17,9 +17,11 @@
 </form>
 <form id="urbanAreasForm">
     <select id="urbanAreas-Dropdown" name= "Choose a city" single="">
+        <option value="Type or select a city"></option>
     <input id="urbanAreas-submit" type="submit" value="Fetch!">
 </select>
 </form>
+<div class="container">
 <section id="results-one" class="hidden">
     <ul id="results-list-one">
     </ul>
@@ -35,6 +37,7 @@
     <ul id="results-list-two">
     </ul>
 </section>
+</div>
 <script type="text/javascript" src="urban_areas.json"></script>
 <script type="text/javascript" src="datastore.js"></script>    
 <script src="index.js"></script>

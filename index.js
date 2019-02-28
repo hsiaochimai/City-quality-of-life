@@ -52,6 +52,7 @@ function currentlocationSubmit() {
             .then(obj => {
                 return getDataByCoordinates(obj)
             })
+            $('#current-location').hide();
     });
 }
 //uses coordinates from ip stack to get data from teleport
@@ -127,9 +128,11 @@ function updateDOM() {
     }
     displaySecondary();
 }
-
+function watchForm(){
 currentlocationSubmit();
 urbanAreasDropdown();
 setupDropdownSubmit();
 setupSecondaryDropdownSubmit();
 updateDOM();
+}
+watchForm();
