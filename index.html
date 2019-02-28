@@ -4,21 +4,28 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Quality of life based on cites</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="chosen.jquery.min.js"></script>
         <link href="chosen.min.css" rel="stylesheet">
         <link href="reset.css" rel="stylesheet" type="text/css" />
         <link href="index.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="chosen.jquery.min.js"></script>
       </head>  
 </html>
 <body>
 <div id="background-wrapper">
+    <header role="banner">
+        <div class="home">
+            <img src="https://cdn1.iconfinder.com/data/icons/filled-line-christmas-icons/75/_city_snowglobe-128.png" alt="city snow globe">
+        </div>
+        <h1>See the quality of life in your current location or select from the cities below</h1> 
+    </header>
 <form id="current-location">
     <div class=location>
         <label for="detectLocation">Detect my Location</label>
         <input type="submit" value="Submit!"><br>
     </div>
 </form>
+<nav>
 <div id="urbanAreasSearch">
 <form id="urbanAreasForm">
     <select id="urbanAreas-Dropdown" name= "Choose a city" single="" data-placeholder="Type or select a city">
@@ -26,6 +33,7 @@
 </select>
 </form>
 </div>
+</nav>
 <div class="container">
 <section id="results-one" class="hidden">
     <ul id="results-list-one">
