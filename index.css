@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    }
+
+body{
+    background:url('https://images.unsplash.com/photo-1505892148330-7b4e69218206?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80') fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    overflow:hidden;   
+}
+#background-wrapper{
+    background: rgba(251, 251, 251, 0.5);
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    overflow: auto;
+}
+.location{
+    display:flex;
+    margin-top: 20px;
+   padding-left: 20px;
+    
+}

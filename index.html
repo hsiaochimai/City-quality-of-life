@@ -2,25 +2,30 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Quality of life based on cites</title>
-        <link href="index.css" rel="stylesheet" type="text/css" />
         <link href="chosen.min.css" rel="stylesheet">
+        <link href="reset.css" rel="stylesheet" type="text/css" />
+        <link href="index.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="chosen.jquery.min.js"></script>
       </head>  
 </html>
 <body>
+<div id="background-wrapper">
 <form id="current-location">
+    <div class=location>
         <label for="detectLocation">Detect my Location</label>
         <input type="submit" value="Submit!"><br>
+    </div>
 </form>
+<div id="urbanAreasSearch">
 <form id="urbanAreasForm">
-    <select id="urbanAreas-Dropdown" name= "Choose a city" single="">
-        <option value="Type or select a city"></option>
+    <select id="urbanAreas-Dropdown" name= "Choose a city" single="" data-placeholder="Type or select a city">
     <input id="urbanAreas-submit" type="submit" value="Fetch!">
 </select>
 </form>
+</div>
 <div class="container">
 <section id="results-one" class="hidden">
     <ul id="results-list-one">
@@ -41,4 +46,5 @@
 <script type="text/javascript" src="urban_areas.json"></script>
 <script type="text/javascript" src="datastore.js"></script>    
 <script src="index.js"></script>
+</div>
 </body>
