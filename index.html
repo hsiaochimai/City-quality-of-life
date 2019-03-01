@@ -23,6 +23,14 @@
                     <input id="urbanAreas-submit" type="submit" value="Fetch!">
                 </select>
             </form>
+            <div id="compareCity" class="hidden">
+                <p>Compare to another city</p>
+                <form id="urbanAreasForm-secondary">
+                    <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
+                        <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
+                    </select>
+                </form>
+            </div>
         </nav>
         <header role="banner">
         
@@ -36,13 +44,6 @@
             </section>
         </div>
         <div id="results-two-container">
-            <div id="compareCity">
-                <form id="urbanAreasForm-secondary">
-                    <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
-                        <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
-                    </select>
-                </form>
-            </div>
             <section id="results-two" class="hidden">
                 <ul id="results-list-two">
                 </ul>

@@ -1,4 +1,4 @@
-//gets keys for dropdown menu
+//gets keys for dropdown menus
 function urbanAreasDropdown() {
     console.log(urbanAreaNames);
     let userInputUA = Object.keys(urbanAreaNames);
@@ -19,7 +19,7 @@ function setupDropdownSubmit() {
         $('#results-one').removeClass('hidden')
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
-        if (userInput === "currentLocation") {
+        if (userInput === "Current Location") {
             currentlocationSubmit();
         }
         else {
@@ -34,7 +34,7 @@ function setupSecondaryDropdownSubmit() {
         event.preventDefault();
         let userInput = $('#urbanAreas-Dropdown-secondary').val();
         console.log(`secondary user input is`, userInput);
-        if (userInput === "currentLocation") {
+        if (userInput === "Current Location") {
             currentlocationSubmit();
         }
         else {
@@ -137,6 +137,13 @@ function updateDOM() {
                 console.log(scoreArr[i].name, pValue, secValue, percentDiff)
             }
         }
+        const selectedCityName=$('#urbanAreas-Dropdown').val();
+
+            const tableHeadCityName=`<th>${selectedCityName}</th>`
+            tableHTML+=tableHeadCityName
+        
+            
+
         const categoryNameScore = `
         <tr class="scoreRowWrapper">
             
@@ -152,6 +159,7 @@ function updateDOM() {
             </td>
             
         </tr>`
+        
        tableHTML+=categoryNameScore
 
     }
@@ -162,17 +170,17 @@ function updateDOM() {
         $('.diffValue').hide()
     }
 
-    function displaySecondary() {
+    /*function displaySecondary() {
         $('#results-two').empty();
         if (STORE.secondaryData === null) {
             return
         }
         const scoreArr = STORE.secondaryData.categories
-        $('#results-two').removeClass('hidden')
-        let citySummary = normalizeSummary(STORE.secondaryData.summary);
-        $('#results-two').append(citySummary);
-        let overallCityScore = `<p>Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
-        $('#results-two').append(overallCityScore);
+        //$('#results-two').removeClass('hidden')
+        //let citySummary = normalizeSummary(STORE.secondaryData.summary);
+        //$('#results-two').append(citySummary);
+        //let overallCityScore = `<p>Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
+        //$('#results-two').append(overallCityScore);
 
         for (i = 0; i < scoreArr.length; i++) {
             const categoryNameScore = `
@@ -186,7 +194,7 @@ function updateDOM() {
 
         }
     }
-    displaySecondary();
+    displaySecondary();*/
 }
 function watchForm() {
     urbanAreasDropdown();
