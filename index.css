@@ -52,15 +52,19 @@ nav{
 #results-one{
 margin-top: 30px;
 padding-left: 10px;
+padding-top: 10px;
+}
+#results-one{
+
 }
 #results-two-container{
     background-color:#28AFB0
 
 }
 #results-two{
-    
     padding-left: 10px;
     }
+
 #urbanAreasForm-secondary{
 
 }
