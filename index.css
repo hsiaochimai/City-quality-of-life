@@ -28,22 +28,35 @@ header{
     margin:auto;
 }
  header h1{
-margin-top: 10px;
+margin-top: 20px;
 }
-.location{
-    display:flex;
-    margin-top: 15px;
-   padding-left: 20px;
-    
+nav{
+    background-color: #0B5563;
+    position:fixed;
+    width:100%;
+    height:30px;
 }
-.location input{
+#urbanAreasForm{
+    padding-top: 5px;
+    padding-left: 10px;
+}
+#urbanAreas-submit{
     margin-left: 10px;
-    border-radius: 50px;
-background:#5299D3;
+    padding-left: 10px;
 }
-.location input :hover{
-    background:#C4DBEC;
+#results-one-container{
+    
+    background-color:#6B5CA5;
+    margin-top: 0;
+}
+#results-one{
+margin-top: 30px;
+padding-left: 10px;
+}
+#results-two-container{
+    background-color:#28AFB0
+
 }
 #urbanAreasForm-secondary{
-    display:none;
+
 }

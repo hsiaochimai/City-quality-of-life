@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Quality of life based on cites</title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="chosen.jquery.min.js"></script>
-        <link href="chosen.min.css" rel="stylesheet">
-        <link href="reset.css" rel="stylesheet" type="text/css" />
-        <link href="index.css" rel="stylesheet" type="text/css" />
-      </head>  
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quality of life based on cites</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="chosen.jquery.min.js"></script>
+    <link href="chosen.min.css" rel="stylesheet">
+    <link href="reset.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+
 </html>
+
 <body>
-<div id="background-wrapper">
+    <div id="background-wrapper">
         <nav>
-                <div id="urbanAreasSearch">
-                <form id="urbanAreasForm">
-                    <select id="urbanAreas-Dropdown" name= "Choose a city" single="" data-placeholder="Type or select a city">
+            <form id="urbanAreasForm">
+                <select id="urbanAreas-Dropdown" data-placeholder="Select a city"> single="" 
                     <input id="urbanAreas-submit" type="submit" value="Fetch!">
                 </select>
-                </form>
-                </div>
-                </nav>
-    <header role="banner">
-        <div class="home">
-            <img src="https://cdn1.iconfinder.com/data/icons/filled-line-christmas-icons/75/_city_snowglobe-128.png" alt="city snow globe">
-        </div>
-        <h1>See the quality of life in your current location or select from the cities below</h1> 
-    </header>
+            </form>
+        </nav>
+        <header role="banner">
+        
+            <h1>See the quality of life in your current location or select a city from above</h1>
+        </header>
 
-<div class="container">
-<section id="results-one" class="hidden">
-    <ul id="results-list-one">
-    </ul>
-</section>
-<div id="compareCity">
-    <form id="urbanAreasForm-secondary">
-        <select id="urbanAreas-Dropdown-secondary" name= "Choose a city" single="">
-        <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
-    </select>
-    </form>
-</div>
-<section id="results-two" class="hidden">
-    <ul id="results-list-two">
-    </ul>
-</section>
-</div>
-<script type="text/javascript" src="urban_areas.json"></script>
-<script type="text/javascript" src="datastore.js"></script>    
-<script src="index.js"></script>
+        <div id="results-one-container">
+            <section id="results-one" class="hidden">
+                <ul id="results-list-one">
+                </ul>
+            </section>
+        </div>
+        <div id="results-two-container">
+            <div id="compareCity">
+                <form id="urbanAreasForm-secondary">
+                    <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
+                        <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
+                    </select>
+                </form>
+            </div>
+            <section id="results-two" class="hidden">
+                <ul id="results-list-two">
+                </ul>
+            </div>
+            </section>
+        <script type="text/javascript" src="urban_areas.json"></script>
+        <script type="text/javascript" src="datastore.js"></script>
+        <script src="index.js"></script>
+    </div>
 </div>
 </body>

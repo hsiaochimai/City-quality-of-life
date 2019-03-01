@@ -16,6 +16,7 @@ function setupDropdownSubmit() {
     $('#urbanAreasForm').submit(event => {
         event.preventDefault();
         $("header").hide();
+        $('#results-one').removeClass('hidden')
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
         if (userInput==="currentLocation"){
@@ -33,7 +34,12 @@ function setupSecondaryDropdownSubmit() {
         event.preventDefault();
         let userInput = $('#urbanAreas-Dropdown-secondary').val();
         console.log(`secondary user input is`, userInput);
+        if (userInput==="currentLocation"){
+            currentlocationSubmit();
+        }
+        else{
         getDataFromDropdown(userInput, false)
+    }
     })
 }
 //gets data from teleport based on the value of dropdown menu
@@ -88,8 +94,16 @@ function getTeleportScores(coordinateArr) {
         .then(response => response.json())
         .then(scoreRes => {
             console.log(`score information is`, scoreRes)
-            STORE.primaryData = scoreRes
-            updateDOM();
+            if (STORE.primaryData=== null){
+                STORE.primaryData = scoreRes
+                updateDOM();
+            }
+            else{
+                STORE.secondaryData=scoreRes
+                
+            }
+            
+            updateDOM(); 
         })
 }
 function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
