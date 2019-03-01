@@ -112,18 +112,26 @@ function updateDOM() {
     $('#results-one').empty();
     if (STORE.primaryData === null) {
         $('#compareCity').hide();
+        $('#results-one').hide();
         return
     }
     $('#compareCity').show();
+    $('#results-one').show();
     const scoreArr = STORE.primaryData.categories
     $('#results-one').removeClass('hidden')
     let citySummary = normalizeSummary(STORE.primaryData.summary);
-    $('#results-one').append(citySummary);
+    $('#results-one').append(`<p>${citySummary}</p>`);
     let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
     $('#results-one').append(overallCityScore);
 
     for (i = 0; i < scoreArr.length; i++) {
-        const categoryNameScore = `<ul>${scoreArr[i].name}<li>Score:${scoreArr[i].score_out_of_10.toFixed(2)}</li></ul>`
+        const categoryNameScore = `
+        <ul class="scoreRowWrapper">
+            <li class="scoreRow">
+            <span class="scoreName">${scoreArr[i].name}</span>
+            <span class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</span>
+            </li>
+        </ul>`
         $('#results-one').append(categoryNameScore);
 
     }
@@ -140,7 +148,13 @@ function updateDOM() {
         $('#results-two').append(overallCityScore);
 
         for (i = 0; i < scoreArr.length; i++) {
-            const categoryNameScore = `<ul>${scoreArr[i].name}<li>Score:${scoreArr[i].score_out_of_10.toFixed(2)}</li></ul>`
+            const categoryNameScore = `
+            <ul>
+                <li class="scoreRow">
+                <span class="scoreName">${scoreArr[i].name}</span>
+                <span class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</span>
+                </li>
+            </ul>`
             $('#results-two').append(categoryNameScore);
 
         }
