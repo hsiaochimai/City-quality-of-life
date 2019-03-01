@@ -19,13 +19,13 @@ function setupDropdownSubmit() {
         $('#results-one').removeClass('hidden')
         let userInput = $('#urbanAreas-Dropdown').val();
         console.log(`user input is`, userInput);
-        if (userInput==="currentLocation"){
+        if (userInput === "currentLocation") {
             currentlocationSubmit();
         }
-        else{
-        
-        getDataFromDropdown(userInput, true)
-    }
+        else {
+
+            getDataFromDropdown(userInput, true)
+        }
     })
 }
 // sets up submit for comparing cities
@@ -34,12 +34,12 @@ function setupSecondaryDropdownSubmit() {
         event.preventDefault();
         let userInput = $('#urbanAreas-Dropdown-secondary').val();
         console.log(`secondary user input is`, userInput);
-        if (userInput==="currentLocation"){
+        if (userInput === "currentLocation") {
             currentlocationSubmit();
         }
-        else{
-        getDataFromDropdown(userInput, false)
-    }
+        else {
+            getDataFromDropdown(userInput, false)
+        }
     })
 }
 //gets data from teleport based on the value of dropdown menu
@@ -59,12 +59,12 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 // sets up submit for current location
 function currentlocationSubmit() {
     fetch('http://api.ipstack.com/check?access_key=8a13d7be3d84524ef68a4533c1352b8f')
-    .then(response => response.json())
-    .then(obj => {
-        return getDataByCoordinates(obj)
+        .then(response => response.json())
+        .then(obj => {
+            return getDataByCoordinates(obj)
 
-            
-    });
+
+        });
 }
 //uses coordinates from ip stack to get data from teleport
 function getDataByCoordinates(objArr) {
@@ -94,16 +94,16 @@ function getTeleportScores(coordinateArr) {
         .then(response => response.json())
         .then(scoreRes => {
             console.log(`score information is`, scoreRes)
-            if (STORE.primaryData=== null){
+            if (STORE.primaryData === null) {
                 STORE.primaryData = scoreRes
                 updateDOM();
             }
-            else{
-                STORE.secondaryData=scoreRes
-                
+            else {
+                STORE.secondaryData = scoreRes
+
             }
-            
-            updateDOM(); 
+
+            updateDOM();
         })
 }
 function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
@@ -123,18 +123,45 @@ function updateDOM() {
     $('#results-one').append(`<p>${citySummary}</p>`);
     let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
     $('#results-one').append(overallCityScore);
-
+    let tableHTML = `<table>`
     for (i = 0; i < scoreArr.length; i++) {
+        let percentDiff = ''
+        let secondaryValue = ''
+        if (STORE.secondaryData) {
+            const pValue = scoreArr[i].score_out_of_10
+            const secValue = STORE.secondaryData.categories[i].score_out_of_10
+            if (secValue !== 0) {
+                secondaryValue = secValue.toFixed(2)
+                percentDiff = 100 - pValue / secValue * 100
+                percentDiff = `${percentDiff.toFixed(2)}%`
+                console.log(scoreArr[i].name, pValue, secValue, percentDiff)
+            }
+        }
         const categoryNameScore = `
-        <ul class="scoreRowWrapper">
-            <li class="scoreRow">
-            <span class="scoreName">${scoreArr[i].name}</span>
-            <span class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</span>
-            </li>
-        </ul>`
-        $('#results-one').append(categoryNameScore);
+        <tr class="scoreRowWrapper">
+            
+            <td class="scoreName">${scoreArr[i].name}</td>
+            <td class="scoreValue">
+            ${scoreArr[i].score_out_of_10.toFixed(2)}            
+            </td>
+            <td class="diffValue">
+            ${secondaryValue}            
+            </td>
+            <td class="diffValue">
+            ${percentDiff}            
+            </td>
+            
+        </tr>`
+       tableHTML+=categoryNameScore
 
     }
+    tableHTML+='</table>'
+    $('#results-one').append(tableHTML)
+
+    if (!STORE.secondaryData) {
+        $('.diffValue').hide()
+    }
+
     function displaySecondary() {
         $('#results-two').empty();
         if (STORE.secondaryData === null) {
@@ -149,22 +176,22 @@ function updateDOM() {
 
         for (i = 0; i < scoreArr.length; i++) {
             const categoryNameScore = `
-            <ul>
-                <li class="scoreRow">
-                <span class="scoreName">${scoreArr[i].name}</span>
-                <span class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</span>
-                </li>
-            </ul>`
+            <tr>
+                
+                <td class="scoreName">${scoreArr[i].name}</td>
+                <td class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</td>
+                
+            </tr>`
             $('#results-two').append(categoryNameScore);
 
         }
     }
     displaySecondary();
 }
-function watchForm(){
-urbanAreasDropdown();
-setupDropdownSubmit();
-setupSecondaryDropdownSubmit();
-updateDOM();
+function watchForm() {
+    urbanAreasDropdown();
+    setupDropdownSubmit();
+    setupSecondaryDropdownSubmit();
+    updateDOM();
 }
 watchForm();

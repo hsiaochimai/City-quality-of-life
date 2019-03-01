@@ -52,7 +52,7 @@ nav{
 }
 #results-one{
 margin-top: 30px;
-padding:2em;
+padding:5vmin;
 color:#333;
 font-size: 20px;
 }
@@ -76,9 +76,10 @@ font-size: 20px;
 .scoreName{
     flex:8;
 }
-.scoreValue{
+.scoreValue, .diffValue{
     flex:2;
     text-align:right;
+    padding-left:.5em;
 }
 .scoreRowWrapper:nth-child(even) {
     background: #5299D3;
