@@ -58,38 +58,52 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 }
 // sets up submit for current location
 function currentlocationSubmit() {
-    fetch('http://api.ipstack.com/check?access_key=8a13d7be3d84524ef68a4533c1352b8f')
+    fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
-        .then(obj => {
+        .then(obj=>{
+            console.log(obj)
+            return getTeleportLocationData(obj);
+        })
+    
+    }   
+        
+       /* .then(obj => {
             return getDataByCoordinates(obj)
 
 
-        });
-}
-//uses coordinates from ip stack to get data from teleport
-function getDataByCoordinates(objArr) {
-    let latitude = objArr.latitude
-    let longitude = objArr.longitude
-    let latLongCoor = latitude + "," + longitude
-    console.log(latLongCoor);
-    getTeleportLocationData(latLongCoor)
+        });*/
 
-}
+//uses coordinates from ip stack to get data from teleport
+
 //gets teleport location data based on coordinates
-function getTeleportLocationData(coordinates) {
-    fetch(`https://api.teleport.org/api/locations/${coordinates}`)
+function getTeleportLocationData(objArr) {
+    let userIpAddress=objArr.ip
+    console.log(`Ip address is ${userIpAddress}`)
+    fetch(`https://api.teleport.org/api/ipaddresses/${userIpAddress}`)
         .then(response => response.json())
         .then(obj => {
-            console.log(`coordinates data is`, obj);
-            return getTeleportScores(obj);
+            console.log(`Ip address data is`, obj);
+            return getDataByIpInput(obj)
+            /*return getTeleportScores(obj);*/
 
         })
 }
+function getDataByIpInput(objArr) {
+    let geoNameId=objArr["_links"]["ip:city"]["href"]
+    console.log(geoNameId)
+    fetch(geoNameId)
+    .then(response=>response.json())
+    .then(obj=>{
+        console.log(obj)
+        return getTeleportScores(obj)
+    })
+
+}
 //gets scores data from teleport based on the location data from coordinates
-function getTeleportScores(coordinateArr) {
-    let coorURL = coordinateArr["_embedded"]["location:nearest-urban-areas"][0]["_links"]["location:nearest-urban-area"]["href"]
-    console.log(`the link is`, coorURL);
-    let scoreURL = coorURL + 'scores/'
+function getTeleportScores(geoIdFromIpObj) {
+    let ipInputUrl = geoIdFromIpObj["_links"]["city:urban_area"]["href"]
+    console.log(`the link is`, ipInputUrl);
+    let scoreURL = ipInputUrl + 'scores/'
     fetch(scoreURL)
         .then(response => response.json())
         .then(scoreRes => {
