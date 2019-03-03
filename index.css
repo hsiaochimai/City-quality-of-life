@@ -61,23 +61,18 @@ nav{
 }
 #results-one{
 margin-top: 70px;
-padding:5vmin;
+padding:3vmin;
 color:#333;
-font-size: 20px;
+font-size: 14px;
 }
-
-#results-two-container{
-    background-color:#28AFB0
-
-}
-#results-two{
-    padding-left: 10px;
-    }
 
 #urbanAreasForm-secondary{
 
 }
-
+.header-wrapper{
+    text-align: left;
+    background:#5299D3;
+}
 .scoreRow{
     display:flex;
     padding: .3em 1em;

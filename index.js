@@ -66,16 +66,7 @@ function currentlocationSubmit() {
         })
 
 }
-
-/* .then(obj => {
-     return getDataByCoordinates(obj)
-
-
- });*/
-
-//uses coordinates from ip stack to get data from teleport
-
-//gets teleport location data based on coordinates
+//gets teleport location data based on Ipaddress
 function getTeleportLocationData(objArr) {
     let userIpAddress = objArr.ip
     console.log(`Ip address is ${userIpAddress}`)
@@ -114,13 +105,13 @@ function getTeleportScores(geoIdFromIpObj) {
             }
             else {
                 STORE.secondaryData = scoreRes
-
             }
-
             updateDOM();
         })
 }
-function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
+function normalizeSummary(summaryStr) 
+{ return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
+
 function displayPrimaryCityResults(){
     $('#compareCity').show();
     $('#results-one').show();
@@ -129,13 +120,9 @@ function displayPrimaryCityResults(){
     $('#results-one').append(`<p>${citySummary}</p>`);
     let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
     $('#results-one').append(overallCityScore);
+    
 }
-function getTableHeaders(){
-    if (STORE.secondaryData===null){
 
-    }
-}
-//puts results into the DOM
 function updateDOM() {
     $('#results-one').empty();
     if (STORE.primaryData === null) {
@@ -143,33 +130,26 @@ function updateDOM() {
         $('#results-one').hide();
         return
     }
+    
     displayPrimaryCityResults()
-//puts overall score and summary into the dom
-    /*$('#compareCity').show();
-    $('#results-one').show();
-    $('#results-one').removeClass('hidden')
-    let citySummary = normalizeSummary(STORE.primaryData.summary);
-    $('#results-one').append(`<p>${citySummary}</p>`);
-    let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
-    $('#results-one').append(overallCityScore);*/
-    //
-
-    // puts the headers based on value from drop and percent diff into DOM
-    let tableHTML = `<table>`
+    //getTableResults()
+   let tableHTML=`<table>`
     let primarySelectedCity=$('#urbanAreas-Dropdown option:selected').text()
-    const secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
-    const tableHeadCityName =
-        `<tr>
-        <th>Categories<th>
+    let secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
+    let tableHeadCityName =
+        `<tr class="header-wrapper">
+        <th class="categories">Categories</th>
         <th class="primaryCity">${primarySelectedCity}</th>
-        <th class"secondaryCity">${secondarySelectedCity}</th>
-        <th class"percentDifference">Percent Difference</th>
+        <th class="secondaryCity">${secondarySelectedCity}</th>
+        <th class="percentDifference">Percent Difference</th>
         <tr>`
-    tableHTML += tableHeadCityName
+    
+   tableHTML += tableHeadCityName
     //
 
-    //calculates the percent diff of cities
-    const scoreArr = STORE.primaryData.categories
+//calculates the percent diff of cities
+const scoreArr = STORE.primaryData.categories
+    
     for (i = 0; i < scoreArr.length; i++) {
         let percentDiff = ''
         let secondaryValue = ''
@@ -200,7 +180,7 @@ function updateDOM() {
             
         </tr>`
 
-        tableHTML += categoryNameScore
+        tableHTML +=categoryNameScore
 
     }
     tableHTML += '</table>'
@@ -208,8 +188,11 @@ function updateDOM() {
 
     if (!STORE.secondaryData) {
         $('.diffValue').hide()
+        $('.primaryCity').hide()
+        $('.secondaryCity').hide()
+   $('.percentDifference').hide()
     }
-//
+//*/
 }
 function watchForm() {
     urbanAreasDropdown();
