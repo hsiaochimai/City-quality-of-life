@@ -60,24 +60,24 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 function currentlocationSubmit() {
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
-        .then(obj=>{
+        .then(obj => {
             console.log(obj)
             return getTeleportLocationData(obj);
         })
-    
-    }   
-        
-       /* .then(obj => {
-            return getDataByCoordinates(obj)
+
+}
+
+/* .then(obj => {
+     return getDataByCoordinates(obj)
 
 
-        });*/
+ });*/
 
 //uses coordinates from ip stack to get data from teleport
 
 //gets teleport location data based on coordinates
 function getTeleportLocationData(objArr) {
-    let userIpAddress=objArr.ip
+    let userIpAddress = objArr.ip
     console.log(`Ip address is ${userIpAddress}`)
     fetch(`https://api.teleport.org/api/ipaddresses/${userIpAddress}`)
         .then(response => response.json())
@@ -89,14 +89,14 @@ function getTeleportLocationData(objArr) {
         })
 }
 function getDataByIpInput(objArr) {
-    let geoNameId=objArr["_links"]["ip:city"]["href"]
+    let geoNameId = objArr["_links"]["ip:city"]["href"]
     console.log(geoNameId)
     fetch(geoNameId)
-    .then(response=>response.json())
-    .then(obj=>{
-        console.log(obj)
-        return getTeleportScores(obj)
-    })
+        .then(response => response.json())
+        .then(obj => {
+            console.log(obj)
+            return getTeleportScores(obj)
+        })
 
 }
 //gets scores data from teleport based on the location data from coordinates
@@ -121,6 +121,20 @@ function getTeleportScores(geoIdFromIpObj) {
         })
 }
 function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
+function displayPrimaryCityResults(){
+    $('#compareCity').show();
+    $('#results-one').show();
+    $('#results-one').removeClass('hidden')
+    let citySummary = normalizeSummary(STORE.primaryData.summary);
+    $('#results-one').append(`<p>${citySummary}</p>`);
+    let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
+    $('#results-one').append(overallCityScore);
+}
+function getTableHeaders(){
+    if (STORE.secondaryData===null){
+
+    }
+}
 //puts results into the DOM
 function updateDOM() {
     $('#results-one').empty();
@@ -129,15 +143,33 @@ function updateDOM() {
         $('#results-one').hide();
         return
     }
-    $('#compareCity').show();
+    displayPrimaryCityResults()
+//puts overall score and summary into the dom
+    /*$('#compareCity').show();
     $('#results-one').show();
-    const scoreArr = STORE.primaryData.categories
     $('#results-one').removeClass('hidden')
     let citySummary = normalizeSummary(STORE.primaryData.summary);
     $('#results-one').append(`<p>${citySummary}</p>`);
     let overallCityScore = `<p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
-    $('#results-one').append(overallCityScore);
+    $('#results-one').append(overallCityScore);*/
+    //
+
+    // puts the headers based on value from drop and percent diff into DOM
     let tableHTML = `<table>`
+    let primarySelectedCity=$('#urbanAreas-Dropdown option:selected').text()
+    const secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
+    const tableHeadCityName =
+        `<tr>
+        <th>Categories<th>
+        <th class="primaryCity">${primarySelectedCity}</th>
+        <th class"secondaryCity">${secondarySelectedCity}</th>
+        <th class"percentDifference">Percent Difference</th>
+        <tr>`
+    tableHTML += tableHeadCityName
+    //
+
+    //calculates the percent diff of cities
+    const scoreArr = STORE.primaryData.categories
     for (i = 0; i < scoreArr.length; i++) {
         let percentDiff = ''
         let secondaryValue = ''
@@ -151,13 +183,7 @@ function updateDOM() {
                 console.log(scoreArr[i].name, pValue, secValue, percentDiff)
             }
         }
-        const selectedCityName=$('#urbanAreas-Dropdown').val();
-
-            const tableHeadCityName=`<th>${selectedCityName}</th>`
-            tableHTML+=tableHeadCityName
-        
-            
-
+//puts the scores in the DOM
         const categoryNameScore = `
         <tr class="scoreRowWrapper">
             
@@ -173,42 +199,17 @@ function updateDOM() {
             </td>
             
         </tr>`
-        
-       tableHTML+=categoryNameScore
+
+        tableHTML += categoryNameScore
 
     }
-    tableHTML+='</table>'
+    tableHTML += '</table>'
     $('#results-one').append(tableHTML)
 
     if (!STORE.secondaryData) {
         $('.diffValue').hide()
     }
-
-    /*function displaySecondary() {
-        $('#results-two').empty();
-        if (STORE.secondaryData === null) {
-            return
-        }
-        const scoreArr = STORE.secondaryData.categories
-        //$('#results-two').removeClass('hidden')
-        //let citySummary = normalizeSummary(STORE.secondaryData.summary);
-        //$('#results-two').append(citySummary);
-        //let overallCityScore = `<p>Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
-        //$('#results-two').append(overallCityScore);
-
-        for (i = 0; i < scoreArr.length; i++) {
-            const categoryNameScore = `
-            <tr>
-                
-                <td class="scoreName">${scoreArr[i].name}</td>
-                <td class="scoreValue">${scoreArr[i].score_out_of_10.toFixed(2)}</td>
-                
-            </tr>`
-            $('#results-two').append(categoryNameScore);
-
-        }
-    }
-    displaySecondary();*/
+//
 }
 function watchForm() {
     urbanAreasDropdown();
