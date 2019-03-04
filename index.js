@@ -44,6 +44,8 @@ function setupSecondaryDropdownSubmit() {
 }
 //gets data from teleport based on the value of dropdown menu
 function getDataFromDropdown(dropdownUserInput, isPrimary) {
+    STORE.message=null
+    updateDOM()
     fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
         .then(response => response.json())
         .then(obj => {
@@ -58,6 +60,8 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 }
 // sets up submit for current location
 function currentlocationSubmit() {
+    STORE.message=null
+    updateDOM()
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(obj => {
