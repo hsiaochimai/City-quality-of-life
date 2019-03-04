@@ -129,16 +129,22 @@ function displayPrimaryCityResults() {
     $('#results-one').show();
     $('#results-one').removeClass('hidden')
     let primaryCitySummary = normalizeSummary(STORE.primaryData.summary);
-    $('#results-one').append(`<p class="primaryCitySumScore">${primaryCitySummary}</p>`);
-    let primaryOverallCityScore = `<p class="primaryCitySumScore">Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
-    $('#results-one').append(primaryOverallCityScore);
+    $('#results-one').append(`<div class="primaryCitySumScore">
+    <p>${primaryCitySummary}</p>
+    <p>Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>
+    </div>
+    `);
 
 }
 function displaySecondaryCitySummary() {
     let secondarycitySummary = normalizeSummary(STORE.secondaryData.summary);
-    $('#results-one').append(`<p class="secondaryCitySumScore">${secondarycitySummary}</p>`);
-    let secondaryoverallCityScore = `<p class="secondaryCitySumScore">Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
-    $('#results-one').append(secondaryoverallCityScore);
+    $('#results-one').append(`<div class="secondaryCitySumScore"
+    <p class="secondaryCitySumScore">${secondarycitySummary}</p>
+    <p class="secondaryCitySumScore">Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>
+    </div>
+    `
+    );
+    
 }
 function getTableResults() {
     let tableHTML = `<table>`
@@ -147,6 +153,7 @@ function getTableResults() {
     let tableHeadCityName =
         `<tr class="header-wrapper">
          <th class="categories">Categories</th>
+         <th class="categories2"></th>
          <th class="primaryCity">${primarySelectedCity}</th>
          <th class="secondaryCity">${secondarySelectedCity}</th>
          <th class="percentDifference">Percent Difference</th>
@@ -177,7 +184,7 @@ function getTableResults() {
              <td class="scoreValue">
              ${scoreArr[i].score_out_of_10.toFixed(2)}            
              </td>
-             <td class="diffValue">
+             <td class="secValue">
              ${secondaryValue}            
              </td>
              <td class="diffValue">
@@ -206,8 +213,12 @@ function updateDOM() {
     $('#results-one').empty();
     if (STORE.primaryData === null) {
         $('#compareCity').hide();
+        $('#results-one-container').hide();
         $('#results-one').hide();
         return
+    }
+    else{
+        $('#results-one-container').show();
     }
     displayPrimaryCityResults()
     if (STORE.secondaryData) {
@@ -215,10 +226,14 @@ function updateDOM() {
     }
     getTableResults()
     if (!STORE.secondaryData) {
+        $('.secValue').hide()
         $('.diffValue').hide()
         $('.primaryCity').hide()
         $('.secondaryCity').hide()
         $('.percentDifference').hide()
+    }
+    else{
+        $('.categories2').hide()
     }
 }
 function watchForm() {

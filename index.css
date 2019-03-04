@@ -11,6 +11,7 @@ body{
     font-family: 'Play', sans-serif;
 }
 #background-wrapper{
+    display:flex;
     background: rgba(251, 251, 251, 0.5);
     height: 100vh;
     width: 100%;
@@ -46,17 +47,34 @@ nav{
 #urbanAreas-submit{
     margin-left: 10px;
     padding-left: 10px;
+    background-color: #9388BD;
+    border:none;
+}
+#urbanAreas-submit:hover{
+    background-color: #63929B;
+    cursor: pointer;
+
 }
 #compareCity{
     background-color:#28AFB0
 }
-#urbanAreas-submit-secondary{
-    margin-left: 10px;
+#urbanAreasForm-secondary{
+    margin-left: 0px;
     padding-left: 10px;
     padding-bottom:5px;
 }
+#urbanAreas-submit-secondary{
+    margin-left: 10px;
+    padding-left: 10px; 
+    background-color: #9388BD;
+    border:none;
+}
+#urbanAreas-submit-secondary:hover{
+    background-color: #166060;
+    cursor: pointer;
+}
 #results-one-container{
-    
+    flex:1;
     background-color:#6B5CA5;
     background-size:cover;
     margin-top: 0;
@@ -67,13 +85,26 @@ padding:3vmin;
 color:#333;
 font-size: 14px;
 }
+.primaryCitySumScore{
+    background-color:#166060;
+    color:#eee;
+    margin: 0 auto;
+    padding: 5px;
+
+}
 .secondaryCitySumScore{
-    background-color:#28AFB0
+    background-color:#28AFB0;
+    margin:0 auto;
+    color:#eee;
+    padding: 5px;
 }
 .header-wrapper{
     text-align: left;
     background:#5299D3;
     font-size: 12px;
+}
+table{
+    margin:0 auto;
 }
 .header-wrapper th{
     padding:.3em;
@@ -85,10 +116,15 @@ font-size: 14px;
 .scoreName{
     flex:8;
 }
-.scoreValue, .diffValue{
-    flex:2;
+.scoreValue {
     text-align:left;
     padding-left:.5em;
+}
+.diffValue{
+    text-align:right;
+}
+.secValue{
+    text-align:center;
 }
 .scoreRowWrapper:nth-child(even) {
     background: #5299D3;
