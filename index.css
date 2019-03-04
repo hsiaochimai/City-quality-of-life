@@ -80,6 +80,8 @@ nav{
     margin-top: 0;
 }
 #results-one{
+    display:flex;
+    flex-direction: column;
 margin-top: 80px;
 padding:3vmin;
 color:#333;
@@ -104,10 +106,17 @@ font-size: 14px;
     font-size: 12px;
 }
 table{
-    margin:0 auto;
+    
+    margin:0 
 }
 .header-wrapper th{
     padding:.3em;
+}
+.secondaryCity{
+    text-align: center;
+}
+.percentDifference{
+    text-align:right;
 }
 .scoreRow{
     display:flex;
