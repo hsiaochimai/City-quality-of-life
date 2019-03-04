@@ -57,21 +57,25 @@ nav{
 #results-one-container{
     
     background-color:#6B5CA5;
+    background-size:cover;
     margin-top: 0;
 }
 #results-one{
-margin-top: 70px;
+margin-top: 80px;
 padding:3vmin;
 color:#333;
 font-size: 14px;
 }
-
-#urbanAreasForm-secondary{
-
+.secondaryCitySumScore{
+    background-color:#28AFB0
 }
 .header-wrapper{
     text-align: left;
     background:#5299D3;
+    font-size: 12px;
+}
+.header-wrapper th{
+    padding:.3em;
 }
 .scoreRow{
     display:flex;
@@ -82,7 +86,7 @@ font-size: 14px;
 }
 .scoreValue, .diffValue{
     flex:2;
-    text-align:right;
+    text-align:left;
     padding-left:.5em;
 }
 .scoreRowWrapper:nth-child(even) {
