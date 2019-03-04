@@ -44,6 +44,8 @@ function setupSecondaryDropdownSubmit() {
 }
 //gets data from teleport based on the value of dropdown menu
 function getDataFromDropdown(dropdownUserInput, isPrimary) {
+    STORE.message=null
+    updateDOM()
     fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
         .then(response => response.json())
         .then(obj => {
@@ -58,11 +60,17 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 }
 // sets up submit for current location
 function currentlocationSubmit() {
+    STORE.message=null
+    updateDOM()
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(obj => {
             console.log(obj)
             return getTeleportLocationData(obj);
+        }).catch(e => {
+            console.log('ERR:', e.toString())
+            STORE.message = "Network error, sorry. Please check your internet connection and retry"
+            updateDOM()
         })
 
 }
@@ -75,7 +83,6 @@ function getTeleportLocationData(objArr) {
         .then(obj => {
             console.log(`Ip address data is`, obj);
             return getDataByIpInput(obj)
-            
 
         })
 }
@@ -92,6 +99,12 @@ function getDataByIpInput(objArr) {
 }
 //gets scores data from teleport based on the location data from coordinates
 function getTeleportScores(geoIdFromIpObj) {
+    if (!geoIdFromIpObj["_links"]["city:urban_area"]) {
+        console.error('NO DATA')
+        STORE.message = "No data, sorry"
+        updateDOM()
+        return
+    }
     let ipInputUrl = geoIdFromIpObj["_links"]["city:urban_area"]["href"]
     console.log(`the link is`, ipInputUrl);
     let scoreURL = ipInputUrl + 'scores/'
@@ -109,10 +122,9 @@ function getTeleportScores(geoIdFromIpObj) {
             updateDOM();
         })
 }
-function normalizeSummary(summaryStr) 
-{ return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
+function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
 
-function displayPrimaryCityResults(){
+function displayPrimaryCityResults() {
     $('#compareCity').show();
     $('#results-one').show();
     $('#results-one').removeClass('hidden')
@@ -120,46 +132,46 @@ function displayPrimaryCityResults(){
     $('#results-one').append(`<p class="primaryCitySumScore">${primaryCitySummary}</p>`);
     let primaryOverallCityScore = `<p class="primaryCitySumScore">Overall Score: ${STORE.primaryData.teleport_city_score.toFixed(2)}</p>`
     $('#results-one').append(primaryOverallCityScore);
-    
+
 }
-function displaySecondaryCitySummary(){
+function displaySecondaryCitySummary() {
     let secondarycitySummary = normalizeSummary(STORE.secondaryData.summary);
-            $('#results-one').append(`<p class="secondaryCitySumScore">${secondarycitySummary}</p>`);
-            let secondaryoverallCityScore = `<p class="secondaryCitySumScore">Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
-            $('#results-one').append(secondaryoverallCityScore);
+    $('#results-one').append(`<p class="secondaryCitySumScore">${secondarycitySummary}</p>`);
+    let secondaryoverallCityScore = `<p class="secondaryCitySumScore">Overall Score: ${STORE.secondaryData.teleport_city_score.toFixed(2)}</p>`
+    $('#results-one').append(secondaryoverallCityScore);
 }
-function getTableResults(){
-    let tableHTML=`<table>`
-     let primarySelectedCity=$('#urbanAreas-Dropdown option:selected').text()
-     let secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
-     let tableHeadCityName =
-         `<tr class="header-wrapper">
+function getTableResults() {
+    let tableHTML = `<table>`
+    let primarySelectedCity = $('#urbanAreas-Dropdown option:selected').text()
+    let secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
+    let tableHeadCityName =
+        `<tr class="header-wrapper">
          <th class="categories">Categories</th>
          <th class="primaryCity">${primarySelectedCity}</th>
          <th class="secondaryCity">${secondarySelectedCity}</th>
          <th class="percentDifference">Percent Difference</th>
          <tr>`
     tableHTML += tableHeadCityName
-     //
- 
- //calculates the percent diff of cities
- const scoreArr = STORE.primaryData.categories
-     
-     for (i = 0; i < scoreArr.length; i++) {
-         let percentDiff = ''
-         let secondaryValue = ''
-         if (STORE.secondaryData) {
-             const pValue = scoreArr[i].score_out_of_10
-             const secValue = STORE.secondaryData.categories[i].score_out_of_10
-             if (secValue !== 0) {
-                 secondaryValue = secValue.toFixed(2)
-                 percentDiff = 100 - pValue / secValue * 100
-                 percentDiff = `${percentDiff.toFixed(2)}%`
-                 console.log(scoreArr[i].name, pValue, secValue, percentDiff)
-             }  
-         }
- //puts the scores in the DOM
-         const categoryNameScore = `
+    //
+
+    //calculates the percent diff of cities
+    const scoreArr = STORE.primaryData.categories
+
+    for (i = 0; i < scoreArr.length; i++) {
+        let percentDiff = ''
+        let secondaryValue = ''
+        if (STORE.secondaryData) {
+            const pValue = scoreArr[i].score_out_of_10
+            const secValue = STORE.secondaryData.categories[i].score_out_of_10
+            if (secValue !== 0) {
+                secondaryValue = secValue.toFixed(2)
+                percentDiff = 100 - pValue / secValue * 100
+                percentDiff = `${percentDiff.toFixed(2)}%`
+                console.log(scoreArr[i].name, pValue, secValue, percentDiff)
+            }
+        }
+        //puts the scores in the DOM
+        const categoryNameScore = `
          <tr class="scoreRowWrapper">
              <td class="scoreName">${scoreArr[i].name}</td>
              <td class="scoreValue">
@@ -173,15 +185,24 @@ function getTableResults(){
              </td>
              
          </tr>`
- 
-         tableHTML +=categoryNameScore
- 
-     }
-     tableHTML += '</table>'
-     $('#results-one').append(tableHTML)
- }
+
+        tableHTML += categoryNameScore
+
+    }
+    tableHTML += '</table>'
+    $('#results-one').append(tableHTML)
+}
 
 function updateDOM() {
+
+    if (STORE.message) {
+        $('#message').show()
+        $('#message').html(STORE.message)
+    } else {
+        $('#message').hide()
+    }
+
+
     $('#results-one').empty();
     if (STORE.primaryData === null) {
         $('#compareCity').hide();
@@ -189,15 +210,15 @@ function updateDOM() {
         return
     }
     displayPrimaryCityResults()
-    if (STORE.secondaryData){
+    if (STORE.secondaryData) {
         displaySecondaryCitySummary()
-       }
-   getTableResults()
+    }
+    getTableResults()
     if (!STORE.secondaryData) {
         $('.diffValue').hide()
         $('.primaryCity').hide()
         $('.secondaryCity').hide()
-   $('.percentDifference').hide()
+        $('.percentDifference').hide()
     }
 }
 function watchForm() {
