@@ -164,3 +164,20 @@ p{
     font-size:7vmin;
     background: rgba(0,0,0,.75);
 }
+@media only screen and (min-width: 700px){
+header h1{
+    font-size:32px;
+}
+
+#results-one{
+    font-size:20px;
+}
+.header-wrapper th{
+    font-size:20px;
+}
+}
+@media only screen and (min-width: 1000px){
+    #results-one{
+        max-width: ;
+    }
+}
