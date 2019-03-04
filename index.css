@@ -24,9 +24,10 @@ header{
     padding-right: 15px;
     padding-left: 15px;
 }
-.home img{
+.home{
     display:block;
-    margin:auto;
+    margin:0;
+    object-fit: contain;
 }
  header h1{
 margin-top: 20px;
