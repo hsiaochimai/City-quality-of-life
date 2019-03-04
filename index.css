@@ -50,6 +50,16 @@ nav{
     background-color: #9388BD;
     border:none;
 }
+#start-over-container{
+    display:flex;
+
+}
+#start-over{
+    justify-content: flex-end;
+    color:#eee;
+    text-align: left;
+    margin-right:0;
+}
 #urbanAreas-submit:hover{
     background-color: #63929B;
     cursor: pointer;
@@ -171,6 +181,9 @@ header h1{
 
 #results-one{
     font-size:20px;
+    margin-left:auto;
+        margin-right: auto;
+    max-width: 80vmin;
 }
 .header-wrapper th{
     font-size:20px;
@@ -178,6 +191,8 @@ header h1{
 }
 @media only screen and (min-width: 1000px){
     #results-one{
-        max-width: ;
+        margin-left:auto;
+        margin-right: auto;
+        max-width: 90vmin;
     }
 }

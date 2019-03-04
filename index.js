@@ -11,6 +11,12 @@ function urbanAreasDropdown() {
     $('#urbanAreas-Dropdown').chosen();
     $('#urbanAreas-Dropdown-secondary').chosen();
 }
+function startOver(){
+    $('#start-over').click(e=>{
+        console.log(`start over ran`)
+        location.reload();
+    })
+}
 // sets up fetch button to get the data from teleport from value of dropdown
 function setupDropdownSubmit() {
     $('#urbanAreasForm').submit(event => {
@@ -215,10 +221,13 @@ function updateDOM() {
         $('#compareCity').hide();
         $('#results-one-container').hide();
         $('#results-one').hide();
+        $('#start-over').hide();
         return
     }
     else{
+        $('#start-over').show();
         $('#results-one-container').show();
+
     }
     displayPrimaryCityResults()
     if (STORE.secondaryData) {
@@ -238,6 +247,7 @@ function updateDOM() {
 }
 function watchForm() {
     urbanAreasDropdown();
+    startOver();
     setupDropdownSubmit();
     setupSecondaryDropdownSubmit();
     updateDOM();
