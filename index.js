@@ -11,8 +11,8 @@ function urbanAreasDropdown() {
     $('#urbanAreas-Dropdown').chosen();
     $('#urbanAreas-Dropdown-secondary').chosen();
 }
-function startOver(){
-    $('#start-over').click(e=>{
+function startOver() {
+    $('#start-over').click(e => {
         console.log(`start over ran`)
         location.reload();
     })
@@ -50,7 +50,7 @@ function setupSecondaryDropdownSubmit() {
 }
 //gets data from teleport based on the value of dropdown menu
 function getDataFromDropdown(dropdownUserInput, isPrimary) {
-    STORE.message=null
+    STORE.message = null
     updateDOM()
     fetch(`https://api.teleport.org/api/urban_areas/slug:${dropdownUserInput}/scores/`)
         .then(response => response.json())
@@ -66,7 +66,7 @@ function getDataFromDropdown(dropdownUserInput, isPrimary) {
 }
 // sets up submit for current location
 function currentlocationSubmit() {
-    STORE.message=null
+    STORE.message = null
     updateDOM()
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
@@ -94,21 +94,21 @@ function getTeleportLocationData(objArr) {
 }
 //gets data from teleport from link from the the teleport ip address fetch
 function getDataByIpInput(objArr) {
-    if(!objArr["_links"]["ip:city"]){
+    if (!objArr["_links"]["ip:city"]) {
         console.error('NO DATA')
-    STORE.message = "No data, sorry"
-    updateDOM()
-    return
+        STORE.message = "No data, sorry"
+        updateDOM()
+        return
     }
-    else{
+    else {
         let geoNameId = objArr["_links"]["ip:city"]["href"]
-    console.log(geoNameId)
-    fetch(geoNameId)
-        .then(response => response.json())
-        .then(obj => {
-            console.log(obj)
-            return getTeleportScores(obj)
-        })
+        console.log(geoNameId)
+        fetch(geoNameId)
+            .then(response => response.json())
+            .then(obj => {
+                console.log(obj)
+                return getTeleportScores(obj)
+            })
     }
 
 }
@@ -161,7 +161,7 @@ function displaySecondaryCitySummary() {
     </div>
     `
     );
-    
+
 }
 //gets table results and put it in the DOM
 function getTableResults() {
@@ -236,7 +236,7 @@ function updateDOM() {
         $('#start-over').hide();
         return
     }
-    else{
+    else {
         $('#start-over').show();
         $('#results-one-container').show();
 
@@ -253,7 +253,7 @@ function updateDOM() {
         $('.secondaryCity').hide()
         $('.percentDifference').hide()
     }
-    else{
+    else {
         $('.categories2').hide()
     }
 }

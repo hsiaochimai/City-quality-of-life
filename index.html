@@ -17,49 +17,49 @@
 
 <body>
     <main>
-    <div id="background-wrapper">
-        <div aria-live id="message">
+        <div id="background-wrapper">
+            <div aria-live id="message">
 
-        </div>
-        <nav>
-            <form id="urbanAreasForm">
-                <label for="primary-urban-areas-dropdown">
-                <select id="urbanAreas-Dropdown" data-placeholder="Select a city" single="">
-
-                    <label for="urban-area-submit">
-                    <input id="urbanAreas-submit" type="submit" value="Fetch!">
-                </label>
-                </select>
-            </label> 
-                <div id="start-over-container">
-                <a id="start-over" href="">Start Over</a>
             </div>
-            </form>
-            <div id="compareCity" class="hidden">
-                <p>Compare to another city</p>
-                <form id="urbanAreasForm-secondary">
-                    <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
-                        <label for="urban-area-secondary-submit">
-                        <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
+            <nav>
+                <form id="urbanAreasForm">
+                    <label for="primary-urban-areas-dropdown">
+                        <select id="urbanAreas-Dropdown" data-placeholder="Select a city" single="">
+
+                            <label for="urban-area-submit">
+                                <input id="urbanAreas-submit" type="submit" value="Fetch!">
+                            </label>
+                        </select>
                     </label>
-                    </select>
+                    <div id="start-over-container">
+                        <a id="start-over" href="">Start Over</a>
+                    </div>
                 </form>
-            </div>
-        </nav>
-        <header role="banner">
-        
-            <h1>See the quality of life in your current location or select a city from above</h1>
-        </header>
+                <div id="compareCity" class="hidden">
+                    <p>Compare to another city</p>
+                    <form id="urbanAreasForm-secondary">
+                        <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
+                            <label for="urban-area-secondary-submit">
+                                <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
+                            </label>
+                        </select>
+                    </form>
+                </div>
+            </nav>
+            <header role="banner">
 
-        <div id="results-one-container">
-            <section id="results-one" class="hidden">
+                <h1>See the quality of life in your current location or select a city from above</h1>
+            </header>
+
+            <div id="results-one-container">
+                <section id="results-one" class="hidden">
+                </section>
+            </div>
             </section>
+            <script type="text/javascript" src="urban_areas.json"></script>
+            <script type="text/javascript" src="datastore.js"></script>
+            <script src="index.js"></script>
         </div>
-            </section>
-        <script type="text/javascript" src="urban_areas.json"></script>
-        <script type="text/javascript" src="datastore.js"></script>
-        <script src="index.js"></script>
-    </div>
-</div>
-</main>
+        </div>
+    </main>
 </body>
