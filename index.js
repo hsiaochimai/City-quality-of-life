@@ -95,18 +95,20 @@ function getTeleportLocationData(objArr) {
 function getDataByIpInput(objArr) {
     let geoNameId = objArr["_links"]["ip:city"]["href"]
     console.log(geoNameId)
+    if(geoNameId===null){
+        console.error('NO DATA')
+    STORE.message = "No data, sorry"
+    updateDOM()
+    return
+    }
+    else{
     fetch(geoNameId)
         .then(response => response.json())
         .then(obj => {
             console.log(obj)
             return getTeleportScores(obj)
         })
-        if(geoNameId===null){
-            console.error('NO DATA')
-        STORE.message = "No data, sorry"
-        updateDOM()
-        return
-        }
+    }
 
 }
 //gets scores data from teleport based on the location data from coordinates
