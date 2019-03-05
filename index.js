@@ -101,7 +101,7 @@ function getDataByIpInput(objArr) {
             console.log(obj)
             return getTeleportScores(obj)
         })
-        if(!obj["_links"]["ip:city"]["href"]){
+        if(geoNameId===null){
             console.error('NO DATA')
         STORE.message = "No data, sorry"
         updateDOM()
