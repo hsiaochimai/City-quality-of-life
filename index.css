@@ -43,6 +43,7 @@ nav{
     padding-top: 5px;
     padding-left: 10px;
     padding-bottom: 5px;
+    display:flex;
 }
 #urbanAreas-submit{
     margin-left: 10px;
@@ -52,13 +53,21 @@ nav{
 }
 #start-over-container{
     display:flex;
+    align-content: flex-end;
+    justify-self: flex-end;
+    margin-left: 20px;
 
 }
 #start-over{
-    justify-content: flex-end;
+    
     color:#eee;
     text-align: left;
-    margin-right:0;
+    font-size:12px;
+text-decoration: none;
+}
+#start-over:hover{
+    background-color: #63929B;
+    cursor: pointer;
 }
 #urbanAreas-submit:hover{
     background-color: #63929B;
@@ -178,6 +187,9 @@ p{
 header h1{
     font-size:32px;
 }
+#start-over{
+    font-size:16px;
+}
 
 #results-one{
     font-size:20px;
@@ -187,6 +199,7 @@ header h1{
 }
 .header-wrapper th{
     font-size:20px;
+    margin-left: 20px;
 }
 }
 @media only screen and (min-width: 1000px){
