@@ -194,14 +194,14 @@ function getTableResults() {
         //puts the scores in the DOM
         const categoryNameScore = `
          <tr class="scoreRowWrapper">
-             <td scope="row" class="scoreName">${scoreArr[i].name}</td>
-             <td scope="row" class="scoreValue">
+             <td class="scoreName">${scoreArr[i].name}</td>
+             <td class="scoreValue">
              ${scoreArr[i].score_out_of_10.toFixed(2)}            
              </td>
-             <td scope="row" class="secValue">
+             <td class="secValue">
              ${secondaryValue}            
              </td>
-             <td scope="row" class="diffValue">
+             <td class="diffValue">
              ${percentDiff}            
              </td>
              
