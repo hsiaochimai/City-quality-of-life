@@ -121,7 +121,7 @@ font-size: 14px;
 }
 .header-wrapper{
     text-align: left;
-    background:#5299D3;
+    background:#65A4D7;
     font-size: 12px;
 }
 table{
@@ -155,7 +155,7 @@ table{
     text-align:center;
 }
 .scoreRowWrapper:nth-child(even) {
-    background: #5299D3;
+    background: #65A4D7;
 }
 .scoreRowWrapper:nth-child(odd) {
     background: #C4DBEC;
