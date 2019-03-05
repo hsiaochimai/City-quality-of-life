@@ -44,6 +44,7 @@ nav{
     padding-left: 10px;
     padding-bottom: 5px;
     display:flex;
+    direction:row;
 }
 #urbanAreas-submit{
     margin-left: 10px;
@@ -55,7 +56,7 @@ nav{
     display:flex;
     align-content: flex-end;
     justify-self: flex-end;
-    margin-left: 20px;
+    margin-left: 10px;
 
 }
 #start-over{
@@ -125,8 +126,8 @@ font-size: 14px;
     font-size: 12px;
 }
 table{
-    
-    margin:0 
+    width:100%;
+    margin:0; 
 }
 .header-wrapper th{
     padding:.3em;
