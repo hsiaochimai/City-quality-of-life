@@ -12,9 +12,9 @@ Users will then be able to compare their initial search with other city from a d
 Technology used: HTML, CSS, JavaScript, jQuery
 
 #Images
-![](images/)
-![](images/)
-![](images/)
-![](images/)
-![](images/)
+![](_images/QOL_HomePage.png)
+![](_images/QOL_HomeCurrentLoc.png)
+![](_images/QOL_InitialCity_results.png)
+![](_images/QOL_compare_city.png)
+![](_images/QOL_compareCity_results.png)
 
