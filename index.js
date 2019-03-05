@@ -166,11 +166,11 @@ function getTableResults() {
     let secondarySelectedCity = $('#urbanAreas-Dropdown-secondary option:selected').text();
     let tableHeadCityName =
         `<tr class="header-wrapper">
-         <th class="categories">Categories</th>
-         <th class="categories2"></th>
-         <th class="primaryCity">${primarySelectedCity}</th>
-         <th class="secondaryCity">${secondarySelectedCity}</th>
-         <th class="percentDifference">Percent Difference</th>
+         <th scope="col" class="categories">Categories</th>
+         <th scope="col" class="categories2"></th>
+         <th scope="col" class="primaryCity">${primarySelectedCity}</th>
+         <th scope="col" class="secondaryCity">${secondarySelectedCity}</th>
+         <th scope="col" class="percentDifference">Percent Difference</th>
          <tr>`
     tableHTML += tableHeadCityName
     //
@@ -194,14 +194,14 @@ function getTableResults() {
         //puts the scores in the DOM
         const categoryNameScore = `
          <tr class="scoreRowWrapper">
-             <td class="scoreName">${scoreArr[i].name}</td>
-             <td class="scoreValue">
+             <td scope="row" class="scoreName">${scoreArr[i].name}</td>
+             <td scope="row" class="scoreValue">
              ${scoreArr[i].score_out_of_10.toFixed(2)}            
              </td>
-             <td class="secValue">
+             <td scope="row" class="secValue">
              ${secondaryValue}            
              </td>
-             <td class="diffValue">
+             <td scope="row" class="diffValue">
              ${percentDiff}            
              </td>
              
