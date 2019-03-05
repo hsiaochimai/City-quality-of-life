@@ -93,8 +93,6 @@ function getTeleportLocationData(objArr) {
         })
 }
 function getDataByIpInput(objArr) {
-    let geoNameId = objArr["_links"]["ip:city"]["href"]
-    console.log(geoNameId)
     if(!objArr["_links"]["ip:city"]){
         console.error('NO DATA')
     STORE.message = "No data, sorry"
@@ -102,6 +100,8 @@ function getDataByIpInput(objArr) {
     return
     }
     else{
+        let geoNameId = objArr["_links"]["ip:city"]["href"]
+    console.log(geoNameId)
     fetch(geoNameId)
         .then(response => response.json())
         .then(obj => {
