@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -16,14 +16,17 @@
 </html>
 
 <body>
+    <main>
     <div id="background-wrapper">
         <div aria-live id="message">
 
         </div>
         <nav>
             <form id="urbanAreasForm">
-                <select id="urbanAreas-Dropdown" data-placeholder="Select a city"> single="" 
+                <select id="urbanAreas-Dropdown" data-placeholder="Select a city" single=""> 
+                    <label for="urban-area-submit">
                     <input id="urbanAreas-submit" type="submit" value="Fetch!">
+                </label>
                 </select>
                 <div id="start-over-container">
                 <a id="start-over" href="">Start Over</a>
@@ -33,7 +36,9 @@
                 <p>Compare to another city</p>
                 <form id="urbanAreasForm-secondary">
                     <select id="urbanAreas-Dropdown-secondary" name="Choose a city" single="">
+                        <label for="urban-area-secondary-submit">
                         <input id="urbanAreas-submit-secondary" type="submit" value="Fetch!">
+                    </label>
                     </select>
                 </form>
             </div>
@@ -53,4 +58,5 @@
         <script src="index.js"></script>
     </div>
 </div>
+</main>
 </body>
