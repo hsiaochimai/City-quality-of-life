@@ -101,6 +101,12 @@ function getDataByIpInput(objArr) {
             console.log(obj)
             return getTeleportScores(obj)
         })
+        if(!obj["_links"]["ip:city"]["href"]){
+            console.error('NO DATA')
+        STORE.message = "No data, sorry"
+        updateDOM()
+        return
+        }
 
 }
 //gets scores data from teleport based on the location data from coordinates
