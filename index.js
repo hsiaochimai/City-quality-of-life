@@ -92,6 +92,7 @@ function getTeleportLocationData(objArr) {
 
         })
 }
+//gets data from teleport from link from the the teleport ip address fetch
 function getDataByIpInput(objArr) {
     if(!objArr["_links"]["ip:city"]){
         console.error('NO DATA')
@@ -136,8 +137,9 @@ function getTeleportScores(geoIdFromIpObj) {
             updateDOM();
         })
 }
+//trims summary so it does not show teleport ranking
 function normalizeSummary(summaryStr) { return summaryStr.split('<p>').filter(i => !!i)[0].replace('</p>', '') }
-
+//displays primary city results
 function displayPrimaryCityResults() {
     $('#compareCity').show();
     $('#results-one').show();
@@ -150,6 +152,7 @@ function displayPrimaryCityResults() {
     `);
 
 }
+//displays secondary city results
 function displaySecondaryCitySummary() {
     let secondarycitySummary = normalizeSummary(STORE.secondaryData.summary);
     $('#results-one').append(`<div class="secondaryCitySumScore"
@@ -160,6 +163,7 @@ function displaySecondaryCitySummary() {
     );
     
 }
+//gets table results and put it in the DOM
 function getTableResults() {
     let tableHTML = `<table>`
     let primarySelectedCity = $('#urbanAreas-Dropdown option:selected').text()
@@ -213,7 +217,7 @@ function getTableResults() {
     tableHTML += '</table>'
     $('#results-one').append(tableHTML)
 }
-
+//updates DOM with data from primary and secondary city if there is one
 function updateDOM() {
 
     if (STORE.message) {
@@ -253,6 +257,7 @@ function updateDOM() {
         $('.categories2').hide()
     }
 }
+//sets up Quality of life form
 function watchForm() {
     urbanAreasDropdown();
     startOver();
